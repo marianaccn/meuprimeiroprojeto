@@ -15,10 +15,18 @@ var express = require('express');
 
 var app = express();
 
-app.get('/', function (req, res) {
+app.get('/:nome', function (req, res) {
+    comidas.find({"name":req.params.nome}).then((comida) =>{
+        res.send(comida)
+    });
+});
+
+app.get('/adicionar/:nome/:categoria', function (req, res) {
+    var nome= req.params.nome
+    var categoria= req.params.categoria
     const food = new comidas({ 
-        name: 'Coxinha',
-        categoria: "salgado",
+        name: nome,
+        categoria: categoria,
     });
     food.save().then(() => console.log('ta pronto chefia'));
     res.send(food);
