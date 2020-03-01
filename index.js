@@ -6,47 +6,15 @@ mongoose.connect('mongodb://localhost:27017/primeiraApi', {useNewUrlParser: true
     console.log("nao foi possivel conectar no banco")
 })
 
-const comidas = mongoose.model('comidas', { 
-    name: String,
-    categoria: String,
-});
-
 var express = require('express');
 
 var app = express();
 
 app.use(express.json())
 
-app.post('/', function (req, res) {
-    var nome = req.body.nome
-    var categoria = req.body.categoria
-    const food = new comidas({ 
-        name: nome,
-        categoria: categoria,
-    });
-    food.save().then((resposta) => res.send(resposta)); 
-});
+const routes = require("./rotas")
 
-app.get('/:nome', function (req, res) {
-    comidas.find({"name":req.params.nome}).then((comida) =>{
-        res.send(comida)
-    });
-});
-
-app.patch('/', function (req, res) {
-    var nome = req.body.nome
-    var categoria = req.body.categoria
-    comidas.update({"name":nome}, {"categoria":categoria}).then((comida) =>{
-        res.send(comida)
-    });
-});
-
-app.delete('/:nome', function (req, res) {
-    comidas.deleteOne({"name":req.params.nome}).then((comida) =>{
-        res.send(comida)
-    });
-});
-
+app.use(routes)
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
