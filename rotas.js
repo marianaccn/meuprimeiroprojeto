@@ -11,4 +11,6 @@ router.patch('/', controller.EditarProduto)
 
 router.delete('/:nome', controller.ExcluirProduto)
 
+router.get('/', controller.ListaProdutos)
+
 module.exports = router

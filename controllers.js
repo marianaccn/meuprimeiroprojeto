@@ -30,4 +30,10 @@ function ExcluirProduto(req,res){
     });
 }
 
-module.exports = {CriarProduto, LerProduto, EditarProduto, ExcluirProduto}
+function ListaProdutos(req,res){
+    return comidas.find({}).then((comidas) =>{
+        res.send(comidas)
+    });
+}   
+
+module.exports = {CriarProduto, LerProduto, EditarProduto, ExcluirProduto, ListaProdutos}
