@@ -15,21 +15,22 @@ var express = require('express');
 
 var app = express();
 
-app.get('/:nome', function (req, res) {
-    comidas.find({"name":req.params.nome}).then((comida) =>{
-        res.send(comida)
-    });
-});
+app.use(express.json())
 
-app.get('/adicionar/:nome/:categoria', function (req, res) {
-    var nome= req.params.nome
-    var categoria= req.params.categoria
+app.post('/', function (req, res) {
+    var nome = req.body.nome
+    var categoria = req.body.categoria
     const food = new comidas({ 
         name: nome,
         categoria: categoria,
     });
-    food.save().then(() => console.log('ta pronto chefia'));
-    res.send(food);
+    food.save().then((resposta) => res.send(resposta)); 
+});
+
+app.get('/:nome', function (req, res) {
+    comidas.find({"name":req.params.nome}).then((comida) =>{
+        res.send(comida)
+    });
 });
 
 app.listen(3000, function () {
