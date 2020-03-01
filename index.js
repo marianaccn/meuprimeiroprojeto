@@ -33,6 +33,14 @@ app.get('/:nome', function (req, res) {
     });
 });
 
+app.patch('/', function (req, res) {
+    var nome = req.body.nome
+    var categoria = req.body.categoria
+    comidas.update({"name":nome}, {"categoria":categoria}).then((comida) =>{
+        res.send(comida)
+    });
+});
+
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
