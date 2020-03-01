@@ -41,6 +41,13 @@ app.patch('/', function (req, res) {
     });
 });
 
+app.delete('/:nome', function (req, res) {
+    comidas.deleteOne({"name":req.params.nome}).then((comida) =>{
+        res.send(comida)
+    });
+});
+
+
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
